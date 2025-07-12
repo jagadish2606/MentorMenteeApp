@@ -5,7 +5,7 @@ services:
     buildCommand: pip install -r requirements.txt && python manage.py migrate
     startCommand: gunicorn mentorship_platform.wsgi:application
     envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: mentorship_platform.settings
-      - key: PYTHON_VERSION
-        value: 3.11
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mentorship_app      # 👈 must match your actual Render DB name
+          property: connectionString

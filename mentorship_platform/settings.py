@@ -105,15 +105,13 @@ WSGI_APPLICATION = 'mentorship_platform.wsgi.application'
 #     'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
 # }
 
-try:
-    db_url = os.environ.get("DATABASE_URL")
-    print("Connecting to DB:", db_url)
-    DATABASES = {
-        'default': dj_database_url.parse(db_url, conn_max_age=600, ssl_require=True)
-    }
-except Exception as e:
-    print("❌ DATABASE ERROR:", e)
-    raise
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
 
 
 # Password validation
